@@ -1,1 +1,21 @@
-<p>home works!</p>
+
+<mat-divider></mat-divider>
+My Classes
+<mat-accordion>
+  @for (c of classes; track c.id) {
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{c.name}}</mat-panel-title>
+        <mat-panel-description>{{c.assignments.length}} Assignments</mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-tab-group>
+      @for (assignment of c.assignments; track assignment.id) {
+      <mat-tab label={{assignment.title}}></mat-tab>
+      }
+      </mat-tab-group>
+    </mat-expansion-panel>
+  }
+  @empty {
+  <strong>You have no classes.</strong>
+  }
+</mat-accordion>
