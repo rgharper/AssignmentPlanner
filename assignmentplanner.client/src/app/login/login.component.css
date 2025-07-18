@@ -1,0 +1,15 @@
+:host {
+    display:block;
+}
+
+mat-form-field {
+    display: block;
+    width: 30%;
+    margin: auto;
+}
+
+button {
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+}
