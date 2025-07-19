@@ -1,12 +1,12 @@
 // AssignmentPlanner - Classes model definitions
 export class Assignment {
-  id: string;
+  id: Number;
   title: string;
   description?: string;
   dueDate: Date;
-  classId: string;
+  classId: Number;
   completed: boolean;
-  constructor(id: string, title: string, dueDate: Date, classId: string, description?: string, completed: boolean = false) {
+  constructor(id: Number, title: string, dueDate: Date, classId:Number, description?: string, completed: boolean = false) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -16,17 +16,12 @@ export class Assignment {
   }
 }
 export class Class {
-  id: string;
+  id?: Number;
   name: string;
   assignments: Assignment[];
-  constructor(id: string, name: string, assignments?: Assignment[]) {
+  constructor(name: string, id?: Number, assignments?: Assignment[]) {
     this.id = id;
     this.name = name;
     this.assignments = assignments || [];
-  }
-  generateAssignments():void {
-    for (let i = 0; i < 5; i++) {
-      this.assignments.push(new Assignment(i.toString(), `Assignment${i}`, new Date(Date.now()+i*86400000), this.id, `An assignment ${i}`));
-    }
   }
 }

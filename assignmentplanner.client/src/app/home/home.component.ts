@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Class } from '../_models/classes';
+import { ClassService } from '../_services/class';
+import { Observable, of, take } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -7,14 +9,16 @@ import { Class } from '../_models/classes';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-  classes: Class[] = [];
-  // generate random classes
-  ngOnInit() {
-    for (let i = 0; i < 5; i++) {
-      let c = new Class(i.toString(), `Class ${i}`);
-      c.generateAssignments();
-      this.classes.push(c);
-    }
+export class HomeComponent implements OnInit {
+  classes$: Observable<any> = of(null);
+
+  constructor(private classService: ClassService) {
+    console.log('hello world');
+    //let classService = new ClassService();
+    //this.classes$ = classService.getall();
+  }
+
+  ngOnInit(): void {
+    this.classes$ = this.classService.getall();
   }
 }
