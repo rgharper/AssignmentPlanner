@@ -1,0 +1,38 @@
+<div class="main">
+<mat-accordion>
+  @for (c of classes$ | async; track c.id) {
+    <mat-expansion-panel (afterCollapse)="classPanelClosed()">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{c.name}}</mat-panel-title>
+        <mat-panel-description>{{c.assignments.length}} Assignments</mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-list>
+      @for (assignment of c.assignments; track assignment.id) {
+          <mat-list-item>
+              <div (click)="assignmentClicked(assignment)"
+              [class.selected]="selectedAssignment===assignment">
+                  {{assignment.title}}
+              </div>
+          </mat-list-item>
+      }
+      </mat-list>
+    </mat-expansion-panel>
+  }
+  @empty {
+  <strong>You have no classes.</strong>
+  }
+</mat-accordion>
+@if (selectedAssignment) {
+<mat-card #assignmentCard>
+    <mat-card-header>
+        <mat-card-title>{{selectedAssignment.title}}</mat-card-title>
+        <!-- <mat-card-subtitle>{{openedClass.title}}</mat-card-subtitle> -->
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{selectedAssignment.description}}</p>
+        <p>Due: {{selectedAssignment.dueDate | date:'short'}}</p>
+        <p>Submitted: {{selectedAssignment.completed ? 'Yes' : 'No'}}</p>
+    </mat-card-content>
+</mat-card>
+}
+</div>

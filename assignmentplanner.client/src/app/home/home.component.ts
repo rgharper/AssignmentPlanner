@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Class } from '../_models/classes';
-import { ClassService } from '../_services/class';
-import { Observable, of, take } from 'rxjs';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +6,6 @@ import { Observable, of, take } from 'rxjs';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
-  classes$: Observable<any> = of(null);
+export class HomeComponent {
 
-  constructor(private classService: ClassService) {
-    console.log('hello world');
-    //let classService = new ClassService();
-    //this.classes$ = classService.getall();
-  }
-
-  ngOnInit(): void {
-    this.classes$ = this.classService.getall();
-  }
 }

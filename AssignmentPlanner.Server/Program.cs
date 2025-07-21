@@ -1,3 +1,4 @@
+using AssignmentPlanner.Server.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<DatabaseContext>(options =>
+{
+    options.UseSqlite("Data source=assignmentplanner.db");
+});
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -39,6 +45,5 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
-
 
 app.Run();

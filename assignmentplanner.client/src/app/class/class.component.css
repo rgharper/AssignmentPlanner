@@ -1,0 +1,23 @@
+.selected {
+  background-color: red;
+}
+.main {
+  display: flex;
+/*  flex-direction: row;*/
+/*  height: 100%;*/
+}
+mat-accordion {
+  margin: 1%;
+  flex: 1;
+}
+mat-card {
+  animation: show 600ms 100ms linear forwards;
+  margin: 1%;
+  width: 0;
+  flex: 0 1 0;
+}
+@keyframes show {
+  100% {
+    flex: 2 1 0;
+  }
+}
