@@ -14,5 +14,5 @@ namespace AssignmentPlanner.Server.Model
 
         [ForeignKey("ClassId")]
         public Class Class { get; set; }
-}
+    }
 }

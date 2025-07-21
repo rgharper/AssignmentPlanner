@@ -1,9 +1,12 @@
-﻿namespace AssignmentPlanner.Server.DTOs
+﻿using AssignmentPlanner.Server.Model;
+using System.ComponentModel.DataAnnotations;
+
+namespace AssignmentPlanner.Server.DTOs
 {
     public class ClassDTO
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public AssignmentDTO[] assignments { get; set; } = [];
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public IEnumerable<AssignmentDTO>? Assignments { get; set; }
     }
 }

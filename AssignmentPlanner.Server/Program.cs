@@ -1,5 +1,7 @@
 using AssignmentPlanner.Server.Data;
 using Microsoft.EntityFrameworkCore;
+using AssignmentPlanner.Server.Model;
+using AssignmentPlanner.Server.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +22,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DatabaseContext>(options =>
+builder.Services.AddDbContext<DatabaseContext>(options => { options.UseSqlite($"Data Source=assignmentplanner.db"); });
+
+builder.Services.AddAutoMapper(cfg =>
 {
-    options.UseSqlite("Data source=assignmentplanner.db");
+    cfg.AddProfile<AutoMapperProfiles>();
 });
 
 var app = builder.Build();
