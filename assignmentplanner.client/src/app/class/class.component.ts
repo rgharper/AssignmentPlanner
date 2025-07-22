@@ -1,9 +1,14 @@
-import { Component, OnInit, ViewChild, viewChild } from '@angular/core';
+import { inject, ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import { Class } from '../_interfaces/class.interface';
 import { Assignment } from '../_interfaces/assignment.interface';
 import { ClassService } from '../_services/class';
 import { Observable, of, take } from 'rxjs';
 import { MatSelectionListChange } from '@angular/material/list';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogContent,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-class',
@@ -15,6 +20,7 @@ export class ClassComponent implements OnInit {
   classes$: Observable<Class[] | null> = of(null);
   selectedAssignment: Assignment | null | any = null;
   @ViewChild('assignmentCard') assignmentCard: any;
+  readonly dialog = inject(MatDialog);
 
   constructor(private classService: ClassService) {
   }
@@ -34,4 +40,21 @@ export class ClassComponent implements OnInit {
   classPanelClosed() {
     this.selectedAssignment = null;
   }
+  addAssignment(selectedClass: Class) {
+    this.dialog.open(AssignmentDialog, {
+      width: '250px',
+      enterAnimationDuration: 600,
+      exitAnimationDuration: 600,
+    });
+    //selectedClass.assignments.push()
+  }
+}
+
+// the new assignment dialog
+@Component({
+  selector: 'assignment-dialog',
+  templateUrl: 'dialog-assignment-dialog.html',
+})
+export class AssignmentDialog {
+  readonly dialogRef = inject(MatDialogRef<AssignmentDialog>);
 }

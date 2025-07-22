@@ -5,8 +5,7 @@ namespace AssignmentPlanner.Server.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Model.Class, DTOs.ClassDTO>()
-                .ForMember(dest => dest.Assignments, opt => opt.MapFrom(src => src.Assignments));
+            CreateMap<Model.Class, DTOs.ClassDTO>();
             CreateMap<DTOs.ClassDTO, Model.Class>();
             CreateMap<Model.Assignment, DTOs.AssignmentDTO>();
             CreateMap<DTOs.AssignmentDTO, Model.Assignment>();

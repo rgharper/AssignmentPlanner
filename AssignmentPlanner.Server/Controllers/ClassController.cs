@@ -1,9 +1,9 @@
 ﻿using AssignmentPlanner.Server.Data;
 using AssignmentPlanner.Server.DTOs;
 using AssignmentPlanner.Server.Model;
-using AssignmentPlanner.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace AssignmentPlanner.Server.Controllers
 {
@@ -11,9 +11,14 @@ namespace AssignmentPlanner.Server.Controllers
     public class ClassController : Controller
     {
         private readonly DatabaseContext _db;
-        public ClassController(DatabaseContext db)
+        private readonly IMapper _mapper;
+
+        //private 
+        public ClassController(DatabaseContext db, IMapper mapper)
         {
             _db = db;
+            _mapper = mapper;
+            //_mapper = mapper;
         }
         [HttpGet("get/{id}")]
         public IActionResult Get(int id)
@@ -24,46 +29,14 @@ namespace AssignmentPlanner.Server.Controllers
         [HttpGet("getall/{userid?}")]
         public IActionResult GetAll(int? userid)
         {
-            Console.WriteLine("Adding fake classes and assignments...");
-            for (int i = 1; i <= 6; i++)
-            {
-                var newAssignments = new List<Assignment>();
-                for (int j = 1; j <= 3; j++)
-                {
-                    newAssignments.Add(new Assignment
-                    {
-                        Title = $"Assignment {j}",
-                        Desciption = $"Assignment {j} for class {i}.",
-                        Date = DateTime.Now.AddDays(j),
-                        ClassId = i
-
-                    });
-                }
-                _db.Add(new Class
-                {
-                    Name = $"Class {i}",
-                    Assignments = newAssignments,
-                });
-            }
-            _db.SaveChanges();
-            //Console.WriteLine("Query from the database...");
-            //var classList = _db.Classes.Include(c => c.Assignments).ToList();
-            //Console.WriteLine("Classes and their assignments:");
-            //foreach (var c in classList)
-            //{
-            //    Console.WriteLine($"Class: {c.Name}");
-            //    foreach (var a in c.Assignments)
-            //    {
-            //        Console.WriteLine($"  Assignment: {a.Title}, Description: {a.Desciption}, Date: {a.Date}");
-            //    }
-            //}
-            var classes = _db.Classes.Include(c => c.Assignments);
+            var classes = _mapper.Map<List<ClassDTO>>(_db.Classes.Include(c => c.Assignments));
             return Ok(classes);
         }
 
         [HttpPost("create")]
-        public IActionResult Create()
+        public IActionResult Create(ClassDTO newClass)
         {
+            Console.WriteLine("Creating class: " + newClass.Name);
             return Ok();
         }
 

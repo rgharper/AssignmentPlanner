@@ -1,21 +1,22 @@
 <div class="main">
 <mat-accordion>
-  @for (c of classes$ | async; track c.id) {
+    @for (c of classes$ | async; track c.id) {
     <mat-expansion-panel (afterCollapse)="classPanelClosed()">
-      <mat-expansion-panel-header>
-        <mat-panel-title>{{c.name}}</mat-panel-title>
-        <mat-panel-description>{{c.assignments.length}} Assignments</mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-list>
-      @for (assignment of c.assignments; track assignment.id) {
-          <mat-list-item>
-              <div (click)="assignmentClicked(assignment)"
-              [class.selected]="selectedAssignment===assignment">
-                  {{assignment.title}}
-              </div>
-          </mat-list-item>
-      }
-      </mat-list>
+        <mat-expansion-panel-header>
+            <mat-panel-title>{{c.name}}</mat-panel-title>
+            <mat-panel-description>{{c.assignments.length}} Assignments</mat-panel-description>
+        </mat-expansion-panel-header>
+        <button mat-button (click)="addAssignment(c)">Add Assignment</button>
+        <mat-list>
+            @for (assignment of c.assignments; track assignment.id) {
+            <mat-list-item>
+                <div (click)="assignmentClicked(assignment)"
+                     [class.selected]="selectedAssignment===assignment">
+                    {{assignment.title}}
+                </div>
+            </mat-list-item>
+            }
+        </mat-list>
     </mat-expansion-panel>
   }
   @empty {
