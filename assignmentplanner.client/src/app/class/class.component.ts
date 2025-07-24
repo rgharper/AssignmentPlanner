@@ -9,6 +9,8 @@ import {
   MatDialogRef,
   MatDialogContent,
 } from '@angular/material/dialog';
+import { AssignmentDialogComponent } from '../assignment-dialog/assignment-dialog.component';
+import { ClassDialogComponent } from '../class-dialog/class-dialog.component';
 
 @Component({
   selector: 'app-class',
@@ -17,7 +19,7 @@ import {
   styleUrl: './class.component.css'
 })
 export class ClassComponent implements OnInit {
-  classes$: Observable<Class[] | null> = of(null);
+  classes: Class[] = [];
   selectedAssignment: Assignment | null | any = null;
   @ViewChild('assignmentCard') assignmentCard: any;
   readonly dialog = inject(MatDialog);
@@ -26,11 +28,7 @@ export class ClassComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.classes$ = this.classService.getall();
-  }
-  assignmentSelectionChanged($event: MatSelectionListChange) {
-    //this.selectedAssignment = $event.source._value![0];
-    //console.log(this.selectedAssignment);
+    this.classService.getall().pipe(take(1)).subscribe(classes => this.classes = classes);
   }
 
   assignmentClicked(assignment: Assignment) {
@@ -41,20 +39,10 @@ export class ClassComponent implements OnInit {
     this.selectedAssignment = null;
   }
   addAssignment(selectedClass: Class) {
-    this.dialog.open(AssignmentDialog, {
-      width: '250px',
-      enterAnimationDuration: 600,
-      exitAnimationDuration: 600,
-    });
+    this.dialog.open(AssignmentDialogComponent, { data: { class: selectedClass } });
     //selectedClass.assignments.push()
   }
-}
-
-// the new assignment dialog
-@Component({
-  selector: 'assignment-dialog',
-  templateUrl: 'dialog-assignment-dialog.html',
-})
-export class AssignmentDialog {
-  readonly dialogRef = inject(MatDialogRef<AssignmentDialog>);
+  addClass() {
+    this.dialog.open(ClassDialogComponent, { data: { classes: this.classes } });
+  }
 }

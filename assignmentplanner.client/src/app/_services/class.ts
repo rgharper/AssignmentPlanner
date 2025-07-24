@@ -17,6 +17,6 @@ export class ClassService {
     //this.http.get(`${this.apiUrl}/class/getall`).subscribe(data => { response = data });
     //console.log(response);
     //return response;
-    return this.http.get(`${this.apiUrl}/class/getall`);
+    return this.http.get(`${this.apiUrl}/class`);
   }
 }

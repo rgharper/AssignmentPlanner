@@ -4,18 +4,19 @@ using AssignmentPlanner.Server.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using System.Reflection.Metadata.Ecma335;
 
 namespace AssignmentPlanner.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ClassController : Controller
+    public class AssignmentController : Controller
     {
         private readonly DatabaseContext _db;
         private readonly IMapper _mapper;
 
         //private 
-        public ClassController(DatabaseContext db, IMapper mapper)
+        public AssignmentController(DatabaseContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
@@ -28,20 +29,20 @@ namespace AssignmentPlanner.Server.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetAll(int? userid)
+        public IActionResult GetAll()
         {
-            var classes = _mapper.Map<List<ClassDTO>>(_db.Classes.Include(c => c.Assignments));
-            return Ok(classes);
+            var assignments = _mapper.Map<List<AssignmentDTO>>(_db.Assignments);
+            return Ok(assignments);
         }
 
         [HttpPost()]
-        public async Task<ActionResult<ClassDTO>> Create(ClassDTO newClass)
+        public async Task<ActionResult<AssignmentDTO>> Create(AssignmentDTO newAssignment)
         {
-            Console.WriteLine("Creating assignment: " + newClass.Name);
-            var createdClass = await _db.Classes.AddAsync(_mapper.Map<Class>(newClass));
+            Console.WriteLine("Creating assignment: " + newAssignment.Title);
+            var createdAssignment = await _db.Assignments.AddAsync(_mapper.Map<Assignment>(newAssignment));
             await _db.SaveChangesAsync();
-            Console.WriteLine(createdClass);
-            return _mapper.Map<ClassDTO>(createdClass.Entity);
+            Console.WriteLine(createdAssignment);
+            return _mapper.Map<AssignmentDTO>(createdAssignment.Entity);
         }
 
         [HttpPut()]
@@ -50,12 +51,12 @@ namespace AssignmentPlanner.Server.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete()]
         public IActionResult Delete(int id)
         {
             return Ok();
         }
 
-        
+
     }
 }

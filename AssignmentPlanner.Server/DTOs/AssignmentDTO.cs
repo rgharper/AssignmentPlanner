@@ -9,8 +9,9 @@ namespace AssignmentPlanner.Server.DTOs
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Desciption { get; set; }
+        public string Description { get; set; }
         public DateTime Date { get; set; }
+        [Required]
         public int ClassId { get; set; }
     }
 }

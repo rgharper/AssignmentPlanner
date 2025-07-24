@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
@@ -26,6 +26,9 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { AssignmentDialogComponent } from './assignment-dialog/assignment-dialog.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ClassDialogComponent } from './class-dialog/class-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,13 +37,15 @@ import {
     ClassComponent,
     UserComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    AssignmentDialogComponent,
+    ClassDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, MatDividerModule, MatExpansionModule, MatListModule,
-    MatTabsModule, MatCardModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent
+    MatTabsModule, MatCardModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, MatDatepickerModule,
   ],
   providers: [
     provideHttpClient(),

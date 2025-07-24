@@ -1,6 +1,7 @@
 <div class="main">
 <mat-accordion>
-    @for (c of classes$ | async; track c.id) {
+    <button mat-button (click)="addClass()">Add Assignment</button>
+    @for (c of classes; track c.id) {
     <mat-expansion-panel (afterCollapse)="classPanelClosed()">
         <mat-expansion-panel-header>
             <mat-panel-title>{{c.name}}</mat-panel-title>

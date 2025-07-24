@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>New Assignment</h2>
+<form [formGroup]="assignmentForm" (ngSubmit)="handleSubmit()">
+    <mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput type="text" formControlName="Title" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput type="text" formControlName="Description" required></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Due Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="Date">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button="filled" mat-dialog-close>Close</button>
+        <button mat-button="filled" mat-dialog-close type="submit" cdkFocusInitial>Submit</button>
+    </mat-dialog-actions>
+</form>
