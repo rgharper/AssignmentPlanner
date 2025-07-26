@@ -12,5 +12,6 @@ namespace AssignmentPlanner.Server.Data
         }
         public DbSet<Class> Classes { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
