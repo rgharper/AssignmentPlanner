@@ -18,7 +18,6 @@ export class LoginDialogComponent {
     LastName: new FormControl(''),
     Email: new FormControl(''),
     Password: new FormControl(''),
-    Role: new FormControl(''),
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
@@ -31,7 +30,6 @@ export class LoginDialogComponent {
       LastName: this.loginForm.value.LastName,
       Email: this.loginForm.value.Email,
       Password: this.loginForm.value.Password,
-      Role: this.loginForm.value.Role,
     }
 
     this.http.post(environment.apiUrl + '/user', newUser).pipe(take(1)).subscribe(createdUser => {

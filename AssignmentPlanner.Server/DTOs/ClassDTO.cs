@@ -10,5 +10,8 @@ namespace AssignmentPlanner.Server.DTOs
         public string Name { get; set; }
         public string? Description { get; set; }
         public IEnumerable<AssignmentDTO>? Assignments { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
     }
 }

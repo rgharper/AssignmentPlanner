@@ -32,6 +32,7 @@ import { ClassDialogComponent } from './class-dialog/class-dialog.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { MatRadioModule } from '@angular/material/radio';
     AppRoutingModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, MatDividerModule, MatExpansionModule, MatListModule,
     MatTabsModule, MatCardModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, MatDatepickerModule,
-    MatButtonToggleModule, MatRadioModule,
+    MatButtonToggleModule, MatRadioModule, MatSelectModule,
   ],
   providers: [
     provideHttpClient(),

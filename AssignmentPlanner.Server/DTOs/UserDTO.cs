@@ -2,10 +2,12 @@
 {
     public class UserDTO
     {
+
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public int Role { get; set; } = 4; // 4 = New User, 3 = Parent, 2 = Student, 1 = Teacher, 0 = Admin
+        public IEnumerable<ClassDTO>? Classes { get; set; }
     }
 }
