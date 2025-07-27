@@ -27,15 +27,17 @@ namespace AssignmentPlanner.Server.Controllers
             _mapper = mapper;
         }
 
-        //[HttpPost()]
-        //public async Task<ActionResult<AssignmentDTO>> Create(RegisterDTO newUser)
-        //{
-        //    // Argon2 hases passwords securely and includes salt and parameters in the hash removing the need to store separately
-        //    var hash = Argon2.Hash(newUser.Password);
-        //    var createdUser = await _db.Assignments.AddAsync(_mapper.Map<Assignment>(newAssignment));
-        //    await _db.SaveChangesAsync();
-        //    Console.WriteLine(createdAssignment);
-        //    return _mapper.Map<AssignmentDTO>(createdAssignment.Entity);
-        //}
+        [HttpPost()]
+        public async Task<ActionResult<UserDTO>> Register(UserDTO newUser)
+        {
+            // Argon2 hases passwords securely and includes salt and parameters in the hash removing the need to store separately
+            var User = _mapper.Map<User>(newUser);
+            User.Hash = Argon2.Hash(newUser.Password);
+            var createdUser = await _db.Users.AddAsync(_mapper.Map<User>(newUser));
+            await _db.SaveChangesAsync();
+            return _mapper.Map<UserDTO>(createdUser.Entity);
+        }
+
+
     }
 }

@@ -9,6 +9,8 @@ namespace AssignmentPlanner.Server.Helpers
             CreateMap<DTOs.ClassDTO, Model.Class>();
             CreateMap<Model.Assignment, DTOs.AssignmentDTO>();
             CreateMap<DTOs.AssignmentDTO, Model.Assignment>();
+            CreateMap<Model.User, DTOs.UserDTO>();
+            CreateMap<DTOs.UserDTO, Model.User>();
         }
     }
 }

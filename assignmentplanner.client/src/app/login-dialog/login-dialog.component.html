@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Register</h2>
+<form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+    <mat-dialog-content>
+        <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" formControlName="FirstName" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" formControlName="LastName" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <!-- <mat-radio-group formControlName="Role">
+                <mat-radio-button value="2">Parent</mat-radio-button>
+                <mat-radio-button value="2">Student</mat-radio-button>
+                <mat-radio-button value="1">Teacher</mat-radio-button>
+                <mat-radio-button value="0">Admin</mat-radio-button>
+            </mat-radio-group> -->
+            <mat-label>Role, 0: Admin, 1: Teacher, 2: Student</mat-label>
+            <input matInput type="text" formControlName="Role" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="Email" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="Password" required>
+        </mat-form-field>
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button="filled" mat-dialog-close>Close</button>
+        <button mat-button="filled" mat-dialog-close type="submit" cdkFocusInitial>Submit</button>
+    </mat-dialog-actions>
+</form>
+

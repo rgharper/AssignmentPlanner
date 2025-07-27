@@ -29,6 +29,9 @@ import {
 import { AssignmentDialogComponent } from './assignment-dialog/assignment-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ClassDialogComponent } from './class-dialog/class-dialog.component';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -39,13 +42,15 @@ import { ClassDialogComponent } from './class-dialog/class-dialog.component';
     LoginComponent,
     HomeComponent,
     AssignmentDialogComponent,
-    ClassDialogComponent
+    ClassDialogComponent,
+    LoginDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, MatDividerModule, MatExpansionModule, MatListModule,
     MatTabsModule, MatCardModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, MatDatepickerModule,
+    MatButtonToggleModule, MatRadioModule,
   ],
   providers: [
     provideHttpClient(),
