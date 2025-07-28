@@ -14,8 +14,6 @@ import { take } from 'rxjs';
 export class LoginDialogComponent {
   http = inject(HttpClient);
   loginForm = new FormGroup({
-    FirstName: new FormControl(''),
-    LastName: new FormControl(''),
     Email: new FormControl(''),
     Password: new FormControl(''),
   });
@@ -25,15 +23,13 @@ export class LoginDialogComponent {
   }
 
   handleSubmit() {
-    let newUser = {
-      FirstName: this.loginForm.value.FirstName,
-      LastName: this.loginForm.value.LastName,
+    let user = {
       Email: this.loginForm.value.Email,
       Password: this.loginForm.value.Password,
     }
 
-    this.http.post(environment.apiUrl + '/user', newUser).pipe(take(1)).subscribe(createdUser => {
-      //upon login
+    this.http.post<{token: any}>(environment.apiUrl + '/user/login', user).pipe(take(1)).subscribe(loggedInUser => {
+      localStorage.setItem('token', loggedInUser.token);
     })
   }
 

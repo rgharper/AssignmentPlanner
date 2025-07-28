@@ -1,6 +1,16 @@
-<h2 mat-dialog-title>Log in</h2>
-<form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && handleSubmit()">
+<h2 mat-dialog-title>Register</h2>
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && handleSubmit()">
     <mat-dialog-content>
+        <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" formControlName="FirstName" required>
+            
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" formControlName="LastName" required>
+        </mat-form-field>
+
         <mat-form-field>
             <mat-label>Email</mat-label>
             <input matInput type="email" formControlName="Email" required ngModel email>
@@ -15,7 +25,7 @@
     </mat-dialog-content>
     <mat-dialog-actions>
         <button mat-button="filled" mat-dialog-close>Close</button>
-        <button mat-button="filled" mat-dialog-close [disabled]="!loginForm.valid" type="submit" cdkFocusInitial>Log in</button>
+        <button mat-button="filled" mat-dialog-close [disabled]="!registerForm.valid" type="submit" cdkFocusInitial>Submit</button>
     </mat-dialog-actions>
 </form>
 

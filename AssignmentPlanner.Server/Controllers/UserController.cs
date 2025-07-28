@@ -32,7 +32,7 @@ namespace AssignmentPlanner.Server.Controllers
             _mapper = mapper;
 
             // This key used to sign tokens MUST be securely stored and managed, not hardcoded in production code.
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This key is not secure"));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This key is not secure. This key is not secure! I needed a longer key."));
         }
 
         [HttpPost()]
@@ -46,38 +46,37 @@ namespace AssignmentPlanner.Server.Controllers
             return _mapper.Map<UserDTO>(createdUser.Entity);
         }
 
-        [HttpGet()]
-        public async Task<ActionResult<String>> Login(UserDTO loginUser)
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginUser)
         {
-            var User = _mapper.Map<User>(loginUser);
             var existingUser = await _db.Users.Where(user => user.Email == loginUser.Email).FirstOrDefaultAsync();
 
             if (Argon2.Verify(existingUser.Hash,loginUser.Password)) // Verify the password using Argon2
             {
-                // Initialize claim with the user's email
-                var claims = new List<Claim> {
-                    new Claim(JwtRegisteredClaimNames.NameId, existingUser.Email)
-                };
-
-                var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
-
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.Now.AddDays(7),
-                    SigningCredentials = creds
-                };
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-
-                var tokenEncoded = tokenHandler.WriteToken(token);
-                return tokenEncoded;
+                var tokenEncoded = JWTToken(existingUser.Email);
+                var returnUser = _mapper.Map<UserDTO>(existingUser);
+                returnUser.Token = tokenEncoded; // Add the JWT token to the returned UserDTO
+                return Ok(returnUser);
             }
-            return Unauthorized("Invalid email or password or account does not exist");
+            return Unauthorized("Invalid login or account does not exist");
         }
-
+        private string JWTToken(string Email)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Email, Email)
+            };
+            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(7),
+                SigningCredentials = creds
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
 
     }
 }

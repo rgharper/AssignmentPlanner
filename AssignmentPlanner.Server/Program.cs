@@ -2,6 +2,7 @@ using AssignmentPlanner.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using AssignmentPlanner.Server.Model;
 using AssignmentPlanner.Server.Helpers;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,18 @@ builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<AutoMapperProfiles>();
 });
+
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//                .AddJwtBearer(options =>
+//                {
+//                    options.TokenValidationParameters = new TokenValidationParameters
+//                    {
+//                        ValidateIssuerSigningKey = true,
+//                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
+//                        ValidateIssuer = false,
+//                        ValidateAudience = false
+//                    };
+//                });
 
 var app = builder.Build();
 
