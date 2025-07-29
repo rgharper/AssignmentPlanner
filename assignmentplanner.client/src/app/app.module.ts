@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ClassComponent } from './class/class.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
+import { JwtInterceptor } from './interceptor/jwt.interceptor';
 
 // import dialogs
 import { ClassDialogComponent } from './class-dialog/class-dialog.component';
@@ -13,9 +14,10 @@ import { RegisterDialogComponent } from './register-dialog/register-dialog.compo
 import { AssignmentDialogComponent } from './assignment-dialog/assignment-dialog.component';
 
 // angular import
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // angular material imports
@@ -62,7 +64,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonToggleModule, MatRadioModule, MatSelectModule,
   ],
   providers: [
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([JwtInterceptor,])),
   ],
   bootstrap: [AppComponent]
 })

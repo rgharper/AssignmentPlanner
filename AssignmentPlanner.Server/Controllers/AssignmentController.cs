@@ -1,10 +1,11 @@
 ﻿using AssignmentPlanner.Server.Data;
 using AssignmentPlanner.Server.DTOs;
 using AssignmentPlanner.Server.Model;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
 
 namespace AssignmentPlanner.Server.Controllers
 {
@@ -56,7 +57,5 @@ namespace AssignmentPlanner.Server.Controllers
         {
             return Ok();
         }
-
-
     }
 }

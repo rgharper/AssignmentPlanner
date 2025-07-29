@@ -4,9 +4,12 @@ using AssignmentPlanner.Server.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AssignmentPlanner.Server.Controllers
 {
+    [Authorize] // Require authorization for modifying classes
     [ApiController]
     [Route("[controller]")]
     public class ClassController : Controller
@@ -21,23 +24,21 @@ namespace AssignmentPlanner.Server.Controllers
             _mapper = mapper;
             //_mapper = mapper;
         }
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            return Ok();
-        }
 
         [HttpGet()]
         public IActionResult GetAll(int? userid)
         {
-            var classes = _mapper.Map<List<ClassDTO>>(_db.Classes.Include(c => c.Assignments));
+            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var classes = _mapper.Map<List<ClassDTO>>(_db.Classes.Where(c => c.UserId == userId).Include(c => c.Assignments));
             return Ok(classes);
         }
 
         [HttpPost()]
         public async Task<ActionResult<ClassDTO>> Create(ClassDTO newClass)
         {
+            var userId = Int32.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             Console.WriteLine("Creating assignment: " + newClass.Name);
+            newClass.UserId = userId; // Set the UserId from the authenticated user 
             var createdClass = await _db.Classes.AddAsync(_mapper.Map<Class>(newClass));
             await _db.SaveChangesAsync();
             Console.WriteLine(createdClass);
@@ -53,6 +54,7 @@ namespace AssignmentPlanner.Server.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+
             return Ok();
         }
 

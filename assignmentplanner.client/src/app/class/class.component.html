@@ -32,8 +32,7 @@
     </mat-card-header>
     <mat-card-content>
         <p>{{selectedAssignment.description}}</p>
-        <p>Due: {{selectedAssignment.dueDate | date:'short'}}</p>
-        <p>Submitted: {{selectedAssignment.completed ? 'Yes' : 'No'}}</p>
+        <p>Due: {{selectedAssignment.date | date:'short'}}</p>
     </mat-card-content>
 </mat-card>
 }

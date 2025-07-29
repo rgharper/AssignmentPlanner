@@ -34,5 +34,11 @@ export class AppComponent implements OnInit {
     );
   }
 
+  isLoggedIn() {
+    return localStorage.getItem('token') !== null;
+  }
+  getUsername() {
+    return localStorage.getItem('name');
+  }
   title = 'assignmentplanner.client';
 }

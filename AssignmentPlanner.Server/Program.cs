@@ -3,8 +3,22 @@ using Microsoft.EntityFrameworkCore;
 using AssignmentPlanner.Server.Model;
 using AssignmentPlanner.Server.Helpers;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This key is not secure. This key is not secure! I needed a longer key.")),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
 // Register Identity services
 builder.Services.AddCors(options =>

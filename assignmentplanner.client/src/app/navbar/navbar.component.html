@@ -1,2 +1,7 @@
+@if (!isLoggedIn()) {
 <button mat-button="outlined" (click)="openLogin()">Log in</button>
 <button mat-button="outlined" (click)="openRegister()">Register</button>
+}
+@if (isLoggedIn()) {
+<button mat-button="outlined" (click)="logout()">Log out</button>
+}

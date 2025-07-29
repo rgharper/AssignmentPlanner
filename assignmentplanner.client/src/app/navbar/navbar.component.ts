@@ -19,6 +19,13 @@ export class NavbarComponent {
   openRegister() {
     this.dialog.open(RegisterDialogComponent);
   }
-
+  isLoggedIn() {
+    return localStorage.getItem('token') !== null;
+  }
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    window.location.reload();
+  }
 
 }

@@ -53,18 +53,19 @@ namespace AssignmentPlanner.Server.Controllers
 
             if (Argon2.Verify(existingUser.Hash,loginUser.Password)) // Verify the password using Argon2
             {
-                var tokenEncoded = JWTToken(existingUser.Email);
+                var tokenEncoded = JWTToken(existingUser.Email, existingUser.Id);
                 var returnUser = _mapper.Map<UserDTO>(existingUser);
                 returnUser.Token = tokenEncoded; // Add the JWT token to the returned UserDTO
                 return Ok(returnUser);
             }
             return Unauthorized("Invalid login or account does not exist");
         }
-        private string JWTToken(string Email)
+        private string JWTToken(string Email, int Id)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Email, Email)
+                new Claim(JwtRegisteredClaimNames.Email, Email),
+                new Claim(JwtRegisteredClaimNames.NameId, Id.ToString()),
             };
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
             var tokenDescriptor = new SecurityTokenDescriptor

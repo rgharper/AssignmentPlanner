@@ -1,6 +1,12 @@
 <app-navbar></app-navbar>
-
+@if (isLoggedIn()) {
+<h1>Welcome, {{this.getUsername()}}</h1>
 <router-outlet></router-outlet>
+}
+@if (!isLoggedIn()) {
+<h1>Welcome to Assignment Planner</h1>
+<p>Please log in or register to manage your assignments.</p>
+}
 
 <!--<p>This component demonstrates fetching data from the server.</p>
 

@@ -28,8 +28,9 @@ export class LoginDialogComponent {
       Password: this.loginForm.value.Password,
     }
 
-    this.http.post<{token: any}>(environment.apiUrl + '/user/login', user).pipe(take(1)).subscribe(loggedInUser => {
+    this.http.post<{token: any, firstName: any}>(environment.apiUrl + '/user/login', user).pipe(take(1)).subscribe(loggedInUser => {
       localStorage.setItem('token', loggedInUser.token);
+      localStorage.setItem('name', loggedInUser.firstName);
     })
   }
 

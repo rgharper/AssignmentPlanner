@@ -32,6 +32,7 @@ export class AssignmentDialogComponent {
       Date: this.assignmentForm.value.Date,
       ClassId: this.data.class.id
     }
+    console.log(newAssignment);
 
     this.http.post(environment.apiUrl + '/assignment', newAssignment).pipe(take(1)).subscribe(assignment => {
       this.data.class.assignments.push(assignment);
